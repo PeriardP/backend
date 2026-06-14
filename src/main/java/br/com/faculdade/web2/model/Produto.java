@@ -30,6 +30,9 @@ public class Produto {
     @Column(nullable = false)
     private Integer quantidadeEstoque;
 
+    @Column(length = 100)
+    private String categoria;
+
     @Column(nullable = false)
     private Boolean ativo = true;
 }
