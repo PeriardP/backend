@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:5173", "https://pedrocapp.vercel.app"})
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
@@ -31,14 +32,14 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<Produto> criar(@RequestBody Produto produto) {
+    public ResponseEntity<Produto> criar(@Valid @RequestBody Produto produto) {
         produto.setAtivo(true);
         Produto salvo = produtoRepository.save(produto);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody Produto produtoAtualizado) {
+    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @Valid @RequestBody Produto produtoAtualizado) {
         return produtoRepository.findById(id)
                 .map(produto -> {
                     produto.setNome(produtoAtualizado.getNome());
