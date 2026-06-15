@@ -1,6 +1,6 @@
 package br.com.faculdade.web2.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -28,7 +28,7 @@ public class Usuario {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(message = "A senha é obrigatória")
     @Column(nullable = false)
     private String senha;
